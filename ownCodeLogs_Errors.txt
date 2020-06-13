@@ -1,5 +1,13 @@
 ## https://github.com/sentinelsat/sentinelsat
 # Documentation: https://sentinelsat.readthedocs.io
+https://scihub.copernicus.eu/
+
+"""
+The Copernicus Open Access Hub (previously known as Sentinels Scientific Data Hub) provides complete, free and open access to Sentinel-1, Sentinel-2, Sentinel-3 and Sentinel-5P user products, starting from the In-Orbit Commissioning Review (IOCR).
+
+Sentinel Data are also available via the Copernicus Data and Information Access Services (DIAS) through several platforms . 
+"""
+
 
 Sentinel Data --- TimeSeries 		
 Time-series classification of Sentinel-1 agricultural data over North Dakota	
@@ -8,5 +16,8 @@ https://www.tandfonline.com/doi/full/10.1080/2150704X.2018.1430393?src=recsys
 Sentinel Data --- TimeSeries 		
 Assessment of Sentinel-1A data for rice crop classification using random forests and support vector machines	
 https://www.tandfonline.com/doi/full/10.1080/10106049.2017.1289555?src=recsys
+
+
+
 
 
