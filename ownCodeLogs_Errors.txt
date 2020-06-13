@@ -8,6 +8,47 @@ The Copernicus Open Access Hub (previously known as Sentinels Scientific Data Hu
 Sentinel Data are also available via the Copernicus Data and Information Access Services (DIAS) through several platforms . 
 """
 
+""" 
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ sentinelsat -u rohitdhankar -p rohitdhankar -g map.geojson --sentinel 2 --cloud 10 -s 20151001 -e 20160201 --url https://scihub.copernicus.eu/dhus
+Found 3 products
+Product 608ed9a9-587b-4b40-857c-586b5548341e - Date: 2015-12-07T05:32:12.031Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 772.84 MB
+Product d7e65e95-f60f-4e22-bf14-139a1ae7147c - Date: 2016-01-06T05:32:22.029Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 739.60 MB
+Product 174c520a-e5c7-4f7a-a110-f09435aee3bc - Date: 2016-01-29T05:41:02.03Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 16.82 MB
+---
+3 scenes found with a total size of 1.49 GB
+"""
+
+## ERROR_Own --- Code errors out when in Jupyter or a .py file 
+#
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ python sentinel_test.py
+<sentinelsat.sentinel.SentinelAPI object at 0x7f0f8779ceb0>
+Traceback (most recent call last):
+  File "sentinel_test.py", line 14, in <module>
+    products = s2_api.query(
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 208, in query
+    response, count = self._load_query(query, formatted_order_by, limit, offset)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 349, in _load_query
+    products, count = self._load_subquery(query, order_by, limit, offset)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 387, in _load_subquery
+    _check_scihub_response(response)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 1320, in _check_scihub_response
+    raise api_error
+sentinelsat.sentinel.SentinelAPIError: HTTP status 401 Unauthorized: 
+# HTTP Status 401 - Full authentication is required to access this resource
+
+ **type** Status report
+
+ **message** _Full authentication is required to access this resource_
+
+ **description** _This request requires HTTP authentication._
+
+* * *
+
+### Apache Tomcat/8.0.36
+
+
+
+
 
 Sentinel Data --- TimeSeries 		
 Time-series classification of Sentinel-1 agricultural data over North Dakota	
@@ -16,8 +57,4 @@ https://www.tandfonline.com/doi/full/10.1080/2150704X.2018.1430393?src=recsys
 Sentinel Data --- TimeSeries 		
 Assessment of Sentinel-1A data for rice crop classification using random forests and support vector machines	
 https://www.tandfonline.com/doi/full/10.1080/10106049.2017.1289555?src=recsys
-
-
-
-
 
