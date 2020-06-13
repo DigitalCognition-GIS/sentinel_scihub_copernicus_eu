@@ -1,0 +1,12 @@
+## https://github.com/sentinelsat/sentinelsat
+# Documentation: https://sentinelsat.readthedocs.io
+
+Sentinel Data --- TimeSeries 		
+Time-series classification of Sentinel-1 agricultural data over North Dakota	
+https://www.tandfonline.com/doi/full/10.1080/2150704X.2018.1430393?src=recsys
+
+Sentinel Data --- TimeSeries 		
+Assessment of Sentinel-1A data for rice crop classification using random forests and support vector machines	
+https://www.tandfonline.com/doi/full/10.1080/10106049.2017.1289555?src=recsys
+
+
