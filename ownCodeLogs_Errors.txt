@@ -2,11 +2,100 @@
 # Documentation: https://sentinelsat.readthedocs.io
 https://scihub.copernicus.eu/
 
+##
+https://github.com/rhammell/planesnet-detector
+https://www.kaggle.com/rhammell/planesnet
+
+##
+https://earth.esa.int/web/guest/missions/3rd-party-missions/current-missions/planetscope
+https://www.planet.com/markets/education-and-research/
+
+##
+https://up42.com/pricing/
+https://github.com/up42/up42-py
+
+## GeoFencing - https://tile38.com/commands/
+https://www.youtube.com/watch?v=1vvavIXHQHk
+https://www.youtube.com/watch?v=gc0TmFd6yE4
+https://www.youtube.com/watch?v=Hg3iR7J8q0o
+https://www.youtube.com/watch?v=4eQXJ6Zzdmo
+
+
+
+
 """
 The Copernicus Open Access Hub (previously known as Sentinels Scientific Data Hub) provides complete, free and open access to Sentinel-1, Sentinel-2, Sentinel-3 and Sentinel-5P user products, starting from the In-Orbit Commissioning Review (IOCR).
 
 Sentinel Data are also available via the Copernicus Data and Information Access Services (DIAS) through several platforms . 
 """
+
+
+api = SentinelAPI('rohitdhankar', 'rohitdhankar', 'https://scihub.copernicus.eu/dhus')
+api.download(174c520a-e5c7-4f7a-a110-f09435aee3bc)
+footprint = geojson_to_wkt(read_geojson('map.geojson'))
+products = api.query(footprint,producttype='SLC',orbitdirection='ASCENDING')
+# download all results from the search
+api.download_all(products)
+#
+# GeoJSON FeatureCollection containing footprints and metadata of the scenes
+api.to_geojson(products)
+
+# GeoPandas GeoDataFrame with the metadata of the scenes and the footprints as geometries
+api.to_geodataframe(products)
+
+
+
+
+#
+#
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ python
+Python 3.8.3 (default, May 19 2020, 18:47:26) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> from sentinelsat.sentinel import SentinelAPI, read_geojson, geojson_to_wkt
+>>> from datetime import date
+>>> api = SentinelAPI('rohitdhankar', 'rohitdhankar', 'https://scihub.copernicus.eu/dhus')
+>>> api.download('174c520a-e5c7-4f7a-a110-f09435aee3bc')
+Product 174c520a-e5c7-4f7a-a110-f09435aee3bc is not online. Triggering retrieval from long term archive.
+{'id': '174c520a-e5c7-4f7a-a110-f09435aee3bc', 'title': 'S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903', 'size': 17678524, 'md5': '972B62EE4C7396664950E960B170FC5E', 'date': datetime.datetime(2016, 1, 29, 5, 41, 2, 30000), 'footprint': 'POLYGON((76.02591948 28.92437411,76.01640656 27.93339717,77.13195565 27.92064394,77.15189497 28.91108557,76.02591948 28.92437411,76.02591948 28.92437411))', 'url': "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/$value", 'Online': False, 'Creation Date': datetime.datetime(2018, 12, 13, 18, 31, 35, 802000), 'Ingestion Date': datetime.datetime(2018, 12, 12, 18, 26, 52, 915000), 'path': './S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903.zip', 'downloaded_bytes': 0}
+>>> 
+>>> print(api)
+<sentinelsat.sentinel.SentinelAPI object at 0x7fbc980a5f70>
+>>> 
+>>> footprint = geojson_to_wkt(read_geojson('map.geojson'))
+>>> print(footprint)
+POLYGON((76.9929 28.4783,77.0272 28.3835,77.1299 28.3974,77.1251 28.4735,77.0468 28.5103,76.9929 28.4783))
+>>> 
+>>> products = api.query(footprint,producttype='SLC',orbitdirection='ASCENDING')
+Querying products: 100%|█████████████████████████████████████████████████████████████████████████████| 132/132 [00:01<00:00, 90.15 products/s]
+>>> 
+>>> 
+
+products = api.query(footprint,date = ("20151001", "20160201"),platformname = 'Sentinel-2',cloudcoverpercentage = (0, 10))
+#     date = ("20151001", "20160201"),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """ 
 (tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ sentinelsat -u rohitdhankar -p rohitdhankar -g map.geojson --sentinel 2 --cloud 10 -s 20151001 -e 20160201 --url https://scihub.copernicus.eu/dhus
@@ -18,7 +107,38 @@ Product 174c520a-e5c7-4f7a-a110-f09435aee3bc - Date: 2016-01-29T05:41:02.03Z, In
 3 scenes found with a total size of 1.49 GB
 """
 
-## ERROR_Own --- Code errors out when in Jupyter or a .py file 
+
+
+#
+#
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ sentinelsat -u rohitdhankar -p rohitdhankar -g map.geojson --sentinel 2 --cloud 10 -s 20151001 -e 20160201 --url https://scihub.copernicus.eu/dhus
+Found 3 products
+Product 608ed9a9-587b-4b40-857c-586b5548341e - Date: 2015-12-07T05:32:12.031Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 772.84 MB
+Product d7e65e95-f60f-4e22-bf14-139a1ae7147c - Date: 2016-01-06T05:32:22.029Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 739.60 MB
+Product 174c520a-e5c7-4f7a-a110-f09435aee3bc - Date: 2016-01-29T05:41:02.03Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 16.82 MB
+---
+3 scenes found with a total size of 1.49 GB
+
+
+#
+#
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ python
+Python 3.8.3 (default, May 19 2020, 18:47:26) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> from sentinelsat.sentinel import SentinelAPI, read_geojson, geojson_to_wkt
+>>> from datetime import date
+>>> api = SentinelAPI('rohitdhankar', 'rohitdhankar', 'https://scihub.copernicus.eu/dhus')
+>>> api.download('174c520a-e5c7-4f7a-a110-f09435aee3bc')
+Product 174c520a-e5c7-4f7a-a110-f09435aee3bc is not online. Triggering retrieval from long term archive.
+{'id': '174c520a-e5c7-4f7a-a110-f09435aee3bc', 'title': 'S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903', 'size': 17678524, 'md5': '972B62EE4C7396664950E960B170FC5E', 'date': datetime.datetime(2016, 1, 29, 5, 41, 2, 30000), 'footprint': 'POLYGON((76.02591948 28.92437411,76.01640656 27.93339717,77.13195565 27.92064394,77.15189497 28.91108557,76.02591948 28.92437411,76.02591948 28.92437411))', 'url': "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/$value", 'Online': False, 'Creation Date': datetime.datetime(2018, 12, 13, 18, 31, 35, 802000), 'Ingestion Date': datetime.datetime(2018, 12, 12, 18, 26, 52, 915000), 'path': './S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903.zip', 'downloaded_bytes': 0}
+>>> 
+>>> 
+#
+#
+
+## ERROR_Own --- Code errors out when in Jupyter or a .py file --- above seen running directly from terminal is OK
 #
 (tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ python sentinel_test.py
 <sentinelsat.sentinel.SentinelAPI object at 0x7f0f8779ceb0>
@@ -57,4 +177,274 @@ https://www.tandfonline.com/doi/full/10.1080/2150704X.2018.1430393?src=recsys
 Sentinel Data --- TimeSeries 		
 Assessment of Sentinel-1A data for rice crop classification using random forests and support vector machines	
 https://www.tandfonline.com/doi/full/10.1080/10106049.2017.1289555?src=recsys
+
+
+
+
+
+###########FOOBAR___Terminal_Dump_Below
+
+
+hon 3.8.3 (default, May 19 2020, 18:47:26) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> from sentinelsat.sentinel import SentinelAPI, read_geojson, geojson_to_wkt
+>>> from datetime import date
+>>> api = SentinelAPI('rohitdhankar', 'rohitdhankar', 'https://scihub.copernicus.eu/dhus')
+>>> api.download(174c520a-e5c7-4f7a-a110-f09435aee3bc)
+  File "<stdin>", line 1
+    api.download(174c520a-e5c7-4f7a-a110-f09435aee3bc)
+                    ^
+SyntaxError: invalid syntax
+>>> api.download('174c520a-e5c7-4f7a-a110-f09435aee3bc')
+Product 174c520a-e5c7-4f7a-a110-f09435aee3bc is not online. Triggering retrieval from long term archive.
+{'id': '174c520a-e5c7-4f7a-a110-f09435aee3bc', 'title': 'S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903', 'size': 17678524, 'md5': '972B62EE4C7396664950E960B170FC5E', 'date': datetime.datetime(2016, 1, 29, 5, 41, 2, 30000), 'footprint': 'POLYGON((76.02591948 28.92437411,76.01640656 27.93339717,77.13195565 27.92064394,77.15189497 28.91108557,76.02591948 28.92437411,76.02591948 28.92437411))', 'url': "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/$value", 'Online': False, 'Creation Date': datetime.datetime(2018, 12, 13, 18, 31, 35, 802000), 'Ingestion Date': datetime.datetime(2018, 12, 12, 18, 26, 52, 915000), 'path': './S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903.zip', 'downloaded_bytes': 0}
+>>> 
+>>> print(api)
+<sentinelsat.sentinel.SentinelAPI object at 0x7fbc980a5f70>
+>>> 
+>>> footprint = geojson_to_wkt(read_geojson('map.geojson'))
+>>> print(footprint)
+POLYGON((76.9929 28.4783,77.0272 28.3835,77.1299 28.3974,77.1251 28.4735,77.0468 28.5103,76.9929 28.4783))
+>>> 
+>>> products = api.query(footprint,producttype='SLC',orbitdirection='ASCENDING')
+Querying products: 100%|█████████████████████████████████████████████████████████████████████████████| 132/132 [00:01<00:00, 90.15 products/s]
+>>> 
+>>> api.download_all(products)
+Downloading:   9%|████████▎                                                                               | 488M/5.15G [01:21<05:24, 14.4MB/s]Downloading:  11%|█████████▎                                                                              | 546M/5.15G [01:28<09:13, 8.32MB/s]^CTraceback (most recent call last):██████▏                                                              | 1.43G/5.14G [01:28<03:17, 18.8MB/s]
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 778, in download_all
+    for dl_task in concurrent.futures.as_completed(dl_tasks):
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/concurrent/futures/_base.py", line 244, in as_completed
+    waiter.event.wait(wait_timeout)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/threading.py", line 558, in wait
+    signaled = self._cond.wait(timeout)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/threading.py", line 302, in wait
+    waiter.acquire()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 791, in download_all
+    trigger_thread.join()
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/concurrent/futures/_base.py", line 636, in __exit__
+    self.shutdown(wait=True)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/concurrent/futures/thread.py", line 236, in shutdown
+    t.join()
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/threading.py", line 1011, in join
+    self._wait_for_tstate_lock()
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/threading.py", line 1027, in _wait_for_tstate_lock
+    elif lock.acquire(block, timeout):
+KeyboardInterrupt
+Downloading:  12%|██████████▊                                                                             | 635M/5.15G [01:38<07:00, 10.7MB/s]
+KeyboardInterrupt|███████████████████████████▎                                                           | 1.61G/5.14G [01:37<03:06, 18.9MB/s]
+Downloading:  13%|███████████                                                                             | 648M/5.15G [01:39<06:31, 11.5MB/s]
+KeyboardInterrupt|███████████████████████████▋                                                           | 1.63G/5.14G [01:38<03:03, 19.1MB/s]
+Downloading:  13%|███████████▉                                                                            | 695M/5.15G [01:49<17:10, 4.32MB/s]
+KeyboardInterrupt|█████████████████████████████                                                          | 1.71G/5.14G [01:49<07:29, 7.61MB/s]
+Downloading:  14%|███████████▉                                                                            | 698M/5.15G [01:50<17:41, 4.20MB/s]
+KeyboardInterrupt|█████████████████████████████▏                                                         | 1.72G/5.14G [01:49<06:54, 8.24MB/s]
+Downloading:  14%|████████████                                                                            | 705M/5.15G [01:51<16:13, 4.57MB/s]
+[1]+  Stopped                 python███████████▎                                                         | 1.73G/5.14G [01:51<07:09, 7.93MB/s]
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ 
+(tensorflow_gpuenv) dhankar@dhankar-1:~/_dc_all/QGIS_2020/sentinel/sentinel_scihub_copernicus_eu$ python
+Python 3.8.3 (default, May 19 2020, 18:47:26) 
+[GCC 7.3.0] :: Anaconda, Inc. on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> 
+>>> from sentinelsat.sentinel import SentinelAPI, read_geojson, geojson_to_wkt
+>>> from datetime import date
+>>> 
+>>> api = SentinelAPI('rohitdhankar', 'rohitdhankar', 'https://scihub.copernicus.eu/dhus')
+>>> 
+>>> print(api)
+<sentinelsat.sentinel.SentinelAPI object at 0x7f6fb7a11f70>
+>>> 
+>>> footprint = geojson_to_wkt(read_geojson('map.geojson'))
+>>> print(footprint)
+POLYGON((76.9929 28.4783,77.0272 28.3835,77.1299 28.3974,77.1251 28.4735,77.0468 28.5103,76.9929 28.4783))
+>>> products = api.query(footprint,date = ("20151001", "20160201"),platformname = 'Sentinel-2',cloudcoverpercentage = (0, 10))
+>>> api.download_all(products)
+Downloading: 100%|███████████████████████████████████████████████████████████████████████████████████████| 17.7M/17.7M [00:01<00:00, 9.53MB/s]
+MD5 checksumming: 100%|███████████████████████████████████████████████████████████████████████████████████| 17.7M/17.7M [00:00<00:00, 492MB/s]
+({'174c520a-e5c7-4f7a-a110-f09435aee3bc': {'id': '174c520a-e5c7-4f7a-a110-f09435aee3bc', 'title': 'S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903', 'size': 17678524, 'md5': '972b62ee4c7396664950e960b170fc5e', 'date': datetime.datetime(2016, 1, 29, 5, 41, 2, 30000), 'footprint': 'POLYGON((76.02591948 28.92437411,76.01640656 27.93339717,77.13195565 27.92064394,77.15189497 28.91108557,76.02591948 28.92437411,76.02591948 28.92437411))', 'url': "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/$value", 'Online': True, 'Creation Date': datetime.datetime(2018, 12, 13, 18, 31, 35, 802000), 'Ingestion Date': datetime.datetime(2018, 12, 12, 18, 26, 52, 915000), 'path': './S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903.zip', 'downloaded_bytes': 17678524}}, {'608ed9a9-587b-4b40-857c-586b5548341e': {'id': '608ed9a9-587b-4b40-857c-586b5548341e', 'title': 'S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_20151207T053215', 'size': 810422247, 'md5': 'C904D764EEADA31C70B1E99087A2BAC3', 'date': datetime.datetime(2015, 12, 7, 5, 32, 12, 31000), 'footprint': 'POLYGON((76.02591947946014 28.924374105049683,77.15189496895174 28.91108557013622,77.13195564999772 27.920643940656262,76.01640656053715 27.933397168907067,76.02591947946014 28.924374105049683))', 'url': "https://scihub.copernicus.eu/dhus/odata/v1/Products('608ed9a9-587b-4b40-857c-586b5548341e')/$value", 'Online': False, 'Creation Date': datetime.datetime(2019, 1, 17, 0, 49, 47, 555000), 'Ingestion Date': datetime.datetime(2019, 1, 15, 14, 39, 39, 953000)}}, {'d7e65e95-f60f-4e22-bf14-139a1ae7147c': {'id': 'd7e65e95-f60f-4e22-bf14-139a1ae7147c', 'title': 'S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_20160106T053218', 'size': 775565337, 'md5': 'B7BE049F3DF9F2ABB355787A3D1EA732', 'date': datetime.datetime(2016, 1, 6, 5, 32, 22, 29000), 'footprint': 'POLYGON((76.02591948 28.92437411,76.01640656 27.93339717,77.13195565 27.92064394,77.15189497 28.91108557,76.02591948 28.92437411,76.02591948 28.92437411))', 'url': "https://scihub.copernicus.eu/dhus/odata/v1/Products('d7e65e95-f60f-4e22-bf14-139a1ae7147c')/$value", 'Online': False, 'Creation Date': datetime.datetime(2018, 12, 18, 16, 27, 39, 443000), 'Ingestion Date': datetime.datetime(2018, 12, 18, 16, 21, 27, 271000)}})
+>>> 
+>>> api.to_geojson(products)
+{"features": [{"geometry": {"coordinates": [[[[76.025919, 28.924374], [76.016407, 27.933397], [77.131956, 27.920644], [77.151895, 28.911086], [76.025919, 28.924374]]]], "type": "MultiPolygon"}, "id": 0, "properties": {"beginposition": "2015-12-07T05:32:12.031000Z", "cloudcoverpercentage": 9.3808, "datastripidentifier": "S2A_OPER_MSI_L1C_DS_EPA__20170528T124150_S20151207T053215_N02.04", "datatakesensingstart": "2015-12-07T05:32:12.031000Z", "endposition": "2015-12-07T05:32:12.031000Z", "filename": "S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_20151207T053215.SAFE", "format": "SAFE", "granuleidentifier": "S2A_OPER_MSI_L1C_TL_EPA__20170528T124150_A002390_T43RFM_N02.04", "hv_order_tileid": "RM43F", "id": "608ed9a9-587b-4b40-857c-586b5548341e", "identifier": "S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_20151207T053215", "ingestiondate": "2019-01-15T14:39:39.953000Z", "instrumentname": "Multi-Spectral Instrument", "instrumentshortname": "MSI", "level1cpdiidentifier": "S2A_OPER_MSI_L1C_TL_EPA__20170528T124150_A002390_T43RFM_N02.04", "link": "https://scihub.copernicus.eu/dhus/odata/v1/Products('608ed9a9-587b-4b40-857c-586b5548341e')/$value", "link_alternative": "https://scihub.copernicus.eu/dhus/odata/v1/Products('608ed9a9-587b-4b40-857c-586b5548341e')/", "link_icon": "https://scihub.copernicus.eu/dhus/odata/v1/Products('608ed9a9-587b-4b40-857c-586b5548341e')/Products('Quicklook')/$value", "orbitdirection": "DESCENDING", "orbitnumber": 2390, "platformidentifier": "2015-028A", "platformname": "Sentinel-2", "platformserialidentifier": "Sentinel-2A", "processingbaseline": "02.04", "processinglevel": "Level-1C", "producttype": "S2MSI1C", "relativeorbitnumber": 105, "s2datatakeid": "GS2A_20151207T053212_002390_N02.04", "sensoroperationalmode": "INS-NOBS", "size": "772.84 MB", "summary": "Date: 2015-12-07T05:32:12.031Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 772.84 MB", "tileid": "43RFM", "title": "S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_20151207T053215", "uuid": "608ed9a9-587b-4b40-857c-586b5548341e"}, "type": "Feature"}, {"geometry": {"coordinates": [[[[77.131956, 27.920644], [77.151895, 28.911086], [76.025919, 28.924374], [76.016407, 27.933397], [77.131956, 27.920644]]]], "type": "MultiPolygon"}, "id": 1, "properties": {"beginposition": "2016-01-06T05:32:22.029000Z", "cloudcoverpercentage": 3.0, "datastripidentifier": "S2A_OPER_MSI_L1C_DS_SGS__20160106T092224_S20160106T053218_N02.01", "datatakesensingstart": "2016-01-06T05:32:22.029000Z", "endposition": "2016-01-06T05:32:22.029000Z", "filename": "S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_20160106T053218.SAFE", "format": "SAFE", "granuleidentifier": "S2A_OPER_MSI_L1C_TL_SGS__20160106T092224_A002819_T43RFM_N02.01", "hv_order_tileid": "RM43F", "id": "d7e65e95-f60f-4e22-bf14-139a1ae7147c", "identifier": "S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_20160106T053218", "ingestiondate": "2018-12-18T16:21:27.271000Z", "instrumentname": "Multi-Spectral Instrument", "instrumentshortname": "MSI", "level1cpdiidentifier": "S2A_OPER_MSI_L1C_TL_SGS__20160106T092224_A002819_T43RFM_N02.01", "link": "https://scihub.copernicus.eu/dhus/odata/v1/Products('d7e65e95-f60f-4e22-bf14-139a1ae7147c')/$value", "link_alternative": "https://scihub.copernicus.eu/dhus/odata/v1/Products('d7e65e95-f60f-4e22-bf14-139a1ae7147c')/", "link_icon": "https://scihub.copernicus.eu/dhus/odata/v1/Products('d7e65e95-f60f-4e22-bf14-139a1ae7147c')/Products('Quicklook')/$value", "orbitdirection": "DESCENDING", "orbitnumber": 2819, "platformidentifier": "2015-028A", "platformname": "Sentinel-2", "platformserialidentifier": "Sentinel-2A", "processingbaseline": "02.01", "processinglevel": "Level-1C", "producttype": "S2MSI1C", "relativeorbitnumber": 105, "s2datatakeid": "GS2A_20160106T053222_002819_N02.01", "sensoroperationalmode": "INS-NOBS", "size": "739.60 MB", "summary": "Date: 2016-01-06T05:32:22.029Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 739.60 MB", "tileid": "43RFM", "title": "S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_20160106T053218", "uuid": "d7e65e95-f60f-4e22-bf14-139a1ae7147c"}, "type": "Feature"}, {"geometry": {"coordinates": [[[[77.131956, 27.920644], [77.151895, 28.911086], [76.025919, 28.924374], [76.016407, 27.933397], [77.131956, 27.920644]]]], "type": "MultiPolygon"}, "id": 2, "properties": {"beginposition": "2016-01-29T05:41:02.030000Z", "cloudcoverpercentage": 0.0, "datastripidentifier": "S2A_OPER_MSI_L1C_DS_MTI__20160129T092949_S20160129T054903_N02.01", "datatakesensingstart": "2016-01-29T05:41:02.030000Z", "endposition": "2016-01-29T05:41:02.030000Z", "filename": "S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903.SAFE", "format": "SAFE", "granuleidentifier": "S2A_OPER_MSI_L1C_TL_MTI__20160129T092949_A003148_T43RFM_N02.01", "hv_order_tileid": "RM43F", "id": "174c520a-e5c7-4f7a-a110-f09435aee3bc", "identifier": "S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903", "ingestiondate": "2018-12-12T18:26:52.915000Z", "instrumentname": "Multi-Spectral Instrument", "instrumentshortname": "MSI", "level1cpdiidentifier": "S2A_OPER_MSI_L1C_TL_MTI__20160129T092949_A003148_T43RFM_N02.01", "link": "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/$value", "link_alternative": "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/", "link_icon": "https://scihub.copernicus.eu/dhus/odata/v1/Products('174c520a-e5c7-4f7a-a110-f09435aee3bc')/Products('Quicklook')/$value", "orbitdirection": "DESCENDING", "orbitnumber": 3148, "platformidentifier": "2015-028A", "platformname": "Sentinel-2", "platformserialidentifier": "Sentinel-2A", "processingbaseline": "02.01", "processinglevel": "Level-1C", "producttype": "S2MSI1C", "relativeorbitnumber": 5, "s2datatakeid": "GS2A_20160129T054102_003148_N02.01", "sensoroperationalmode": "INS-NOBS", "size": "16.82 MB", "summary": "Date: 2016-01-29T05:41:02.03Z, Instrument: MSI, Mode: , Satellite: Sentinel-2, Size: 16.82 MB", "tileid": "43RFM", "title": "S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_20160129T054903", "uuid": "174c520a-e5c7-4f7a-a110-f09435aee3bc"}, "type": "Feature"}], "type": "FeatureCollection"}
+>>> 
+>>> api.to_geodataframe(products)
+Traceback (most recent call last):
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 460, in to_geodataframe
+    import geopandas as gpd
+ModuleNotFoundError: No module named 'geopandas'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 463, in to_geodataframe
+    raise ImportError(
+ImportError: to_geodataframe requires the optional dependencies GeoPandas and Shapely.
+>>> 
+>>> 
+>> 
+>>> api.to_geodataframe(products)
+/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/pyproj/crs/crs.py:53: FutureWarning: '+init=<authority>:<code>' syntax is deprecated. '<authority>:<code>' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+  return _prepare_from_string(" ".join(pjargs))
+                                                                                  title  ...                                           geometry
+608ed9a9-587b-4b40-857c-586b5548341e  S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_2...  ...  MULTIPOLYGON (((76.02592 28.92437, 76.01641 27...
+d7e65e95-f60f-4e22-bf14-139a1ae7147c  S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_2...  ...  MULTIPOLYGON (((77.13196 27.92064, 77.15189 28...
+174c520a-e5c7-4f7a-a110-f09435aee3bc  S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_2...  ...  MULTIPOLYGON (((77.13196 27.92064, 77.15189 28...
+
+[3 rows x 34 columns]
+>>> 
+>>> 
+
+>> 
+>>> api.to_geodataframe(products)
+Traceback (most recent call last):
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 460, in to_geodataframe
+    import geopandas as gpd
+ModuleNotFoundError: No module named 'geopandas'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/sentinelsat/sentinel.py", line 463, in to_geodataframe
+    raise ImportError(
+ImportError: to_geodataframe requires the optional dependencies GeoPandas and Shapely.
+>>> 
+>>> api.to_geodataframe(products)
+/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/pyproj/crs/crs.py:53: FutureWarning: '+init=<authority>:<code>' syntax is deprecated. '<authority>:<code>' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+  return _prepare_from_string(" ".join(pjargs))
+                                                                                  title  ...                                           geometry
+608ed9a9-587b-4b40-857c-586b5548341e  S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_2...  ...  MULTIPOLYGON (((76.02592 28.92437, 76.01641 27...
+d7e65e95-f60f-4e22-bf14-139a1ae7147c  S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_2...  ...  MULTIPOLYGON (((77.13196 27.92064, 77.15189 28...
+174c520a-e5c7-4f7a-a110-f09435aee3bc  S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_2...  ...  MULTIPOLYGON (((77.13196 27.92064, 77.15189 28...
+
+[3 rows x 34 columns]
+>>> 
+>>> geo_df = api.to_geodataframe(products)
+/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/pyproj/crs/crs.py:53: FutureWarning: '+init=<authority>:<code>' syntax is deprecated. '<authority>:<code>' is the preferred initialization method. When making the change, be mindful of axis order changes: https://pyproj4.github.io/pyproj/stable/gotchas.html#axis-order-changes-in-proj-6
+  return _prepare_from_string(" ".join(pjargs))
+>>> print(geo_df)
+                                                                                  title  ...                                           geometry
+608ed9a9-587b-4b40-857c-586b5548341e  S2A_MSIL1C_20151207T053212_N0204_R105_T43RFM_2...  ...  MULTIPOLYGON (((76.02592 28.92437, 76.01641 27...
+d7e65e95-f60f-4e22-bf14-139a1ae7147c  S2A_MSIL1C_20160106T053222_N0201_R105_T43RFM_2...  ...  MULTIPOLYGON (((77.13196 27.92064, 77.15189 28...
+174c520a-e5c7-4f7a-a110-f09435aee3bc  S2A_MSIL1C_20160129T054102_N0201_R005_T43RFM_2...  ...  MULTIPOLYGON (((77.13196 27.92064, 77.15189 28...
+
+[3 rows x 34 columns]
+>>> 
+>>> geo_df.to_file("gurugram_1.shp")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/geopandas/geodataframe.py", line 533, in to_file
+    to_file(self, filename, driver, schema, index, **kwargs)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/geopandas/io/file.py", line 190, in to_file
+    with fiona.open(
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/fiona/env.py", line 398, in wrapper
+    return f(*args, **kwargs)
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/fiona/__init__.py", line 262, in open
+    c = Collection(path, mode, crs=crs, driver=driver, schema=this_schema,
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/fiona/collection.py", line 143, in __init__
+    self._check_schema_driver_support()
+  File "/home/dhankar/anaconda3/envs/tensorflow_gpuenv/lib/python3.8/site-packages/fiona/collection.py", line 408, in _check_schema_driver_support
+    raise DriverSupportError("ESRI Shapefile does not support datetime fields")
+fiona.errors.DriverSupportError: ESRI Shapefile does not support datetime fields
+>>> 
+>>> 
+
+
+geo_df.to_file("gurugram_1.geojson", driver='GeoJSON')
+
+geo_df.to_file("gurugram_1.gpkg", layer='countries', driver="GPKG")
+geo_df.to_file("gurugram_1.gpkg", layer='cities', driver="GPKG")
+
+
+
+
+#
+#Google Earth Engine Errors
+#
+
+Couldn't load plugin 'ee_plugin' due to an error when calling its classFactory() method 
+
+ee.ee_exception.EEException: Please authorize access to your Earth Engine account by running earthengine authenticate in your command line, and then retry. 
+Traceback (most recent call last):
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux/ee/data.py", line 218, in get_persistent_credentials
+    tokens = json.load(open(oauth.get_credentials_path()))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dhankar/.config/earthengine/credentials'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/ee_auth.py", line 19, in init
+    ee.Initialize()
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux/ee/__init__.py", line 112, in Initialize
+    credentials = data.get_persistent_credentials()
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux/ee/data.py", line 229, in get_persistent_credentials
+    'Please authorize access to your Earth Engine account by '
+ee.ee_exception.EEException: Please authorize access to your Earth Engine account by running
+
+earthengine authenticate
+
+in your command line, and then retry.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux/ee/data.py", line 218, in get_persistent_credentials
+    tokens = json.load(open(oauth.get_credentials_path()))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dhankar/.config/earthengine/credentials'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/qgis/utils.py", line 334, in _startPlugin
+    plugins[packageName] = package.classFactory(iface)
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/__init__.py", line 25, in classFactory
+    from .ee_plugin import GoogleEarthEnginePlugin
+  File "/usr/lib/python3/dist-packages/qgis/utils.py", line 743, in _import
+    mod = _builtin_import(name, globals, locals, fromlist, level)
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/ee_plugin.py", line 26, in 
+    ee_plugin.ee_auth.init()
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/ee_auth.py", line 22, in init
+    ee.Initialize()  # retry initialization once the user logs in
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux/ee/__init__.py", line 112, in Initialize
+    credentials = data.get_persistent_credentials()
+  File "/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux/ee/data.py", line 229, in get_persistent_credentials
+    'Please authorize access to your Earth Engine account by '
+ee.ee_exception.EEException: Please authorize access to your Earth Engine account by running
+
+earthengine authenticate
+
+in your command line, and then retry.
+
+
+Python version: 3.6.9 (default, Apr 18 2020, 01:56:04) [GCC 8.4.0] 
+QGIS version: 3.12.3-București București, 8234261527 
+
+Python Path:
+/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LAStools
+/usr/share/qgis/python
+/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python
+/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins
+/usr/share/qgis/python/plugins
+/usr/lib/python36.zip
+/usr/lib/python3.6
+/usr/lib/python3.6/lib-dynload
+/home/dhankar/.local/lib/python3.6/site-packages
+/usr/local/lib/python3.6/dist-packages
+/usr/lib/python3/dist-packages
+/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python
+/home/dhankar/_dc_all/QGIS_2020/py_qgis_2020/qgis_test1
+/home/dhankar/.local/share/QGIS/QGIS3/profiles/default/python/plugins/ee_plugin/extlibs_linux
+
+
+
+
 
