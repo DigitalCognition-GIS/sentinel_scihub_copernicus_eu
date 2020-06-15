@@ -1,0 +1,5 @@
+# Source == http://www.un-spider.org/advisory-support/recommended-practices/recommended-practice-burn-severity/Step-by-Step/QGIS-sentinel2
+
+
+Normalised Diffrence Vegetation Index 
+
