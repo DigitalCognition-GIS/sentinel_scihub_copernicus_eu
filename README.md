@@ -156,6 +156,13 @@ Intial experiments with data from - sentinel_scihub_copernicus_eu
 11 directories, 94 files
 ```
 
+<br/>
+
+- Source URL - Sentinel-2-msi Data-Formats  - https://sentinel.esa.int/web/sentinel/user-guides/sentinel-2-msi/data-formats 
+
+<p align="center">
+    <img src="https://github.com/DigitalCognition-GIS/sentinel_scihub_copernicus_eu/blob/master/Screen_captures/Screenshot%20from%202020-07-12%2013-08-26.png" width= "850px">
+</p>
 
 
 <br/>
