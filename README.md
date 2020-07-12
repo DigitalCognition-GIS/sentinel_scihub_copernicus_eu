@@ -168,6 +168,8 @@ Intial experiments with data from - sentinel_scihub_copernicus_eu
 <br/>
 
 - Source URL - https://gdal.org/drivers/vector/gml.html
+- Source URL - https://gdal.org/drivers/vector/index.html
+- Source URL - https://gdal.org/drivers/raster/eedai.html
 - Source URL - Sentinel-2-msi Data-Formats  - https://sentinel.esa.int/web/sentinel/user-guides/sentinel-2-msi/data-formats 
 
 > The Sentinel Data has vector GML Files , these ```Geography Markup Language``` files are as listed within TREE structure of DIR = GRANULE > L1C_T43RFM_A003148_20160129T054903 > QI_DATA .    
@@ -180,12 +182,38 @@ The 'tagset' for this GML has Elements as listed below -
 
 - Source - Further specifics read -- https://sentinel.esa.int/documents/247904/685211/Sentinel-2-Products-Specification-Document
 
+> User Product Format - The  User  Product  is  formatted  by  default  as  a SENTINEL -SAFE(Standard  Archive  Format  for Europe) product.  
+
+- Source URL - https://sentinel.esa.int/web/sentinel/user-guides/sentinel-2-msi/definitions  
+
+> Auxiliary Data - Describes all auxiliary information that will be used by the Payload Data Ground Segment (PDGS) for the processing of MSI data. The auxiliary data required in *MultiSpectral Instrument (MSI)* data generation are:
+
+- Ground Image Processing Parameters (GIPP)  
+- Digital Elevation Model (DEM) (see below)  
+- Global Reference Image (GRI)  
+- European Centre for Medium-Range Weather Forecasts (ECMWF): ozone, surface pressure and water vapour data required for Level-1C processing
+- International Earth Rotation & Reference Systems service (IERS) data  
+- Precise Orbit Determination (POD) data.  
+
+> Datatake - The continuous acquisition of an image from one SENTINEL-2 satellite in a given MSI imaging mode is called a "datatake". The maximum length of an imaging datatake is 15,000 km (continuous observation from northern Russia to southern Africa).  
+
+> Datastrip - Within a given *datatake*, a portion of image downlinked during a pass to a given station is termed a *"datastrip"*. If a particular orbit is acquired by more than one station, a datatake is composed of one or more datastrips. It is expected that the maximum length of a datastrip downlinked to a ground station is approximately 5,000 km.  
+
+> DEM - Digital Elevation Model - *Orthorectification* in the L1C uses the 90m DEM (PlanetDEM 90). The PlanetDEM 90 is reprocessed from 90 metre SRTM (Shuttle Radar Topography Mission) source data. For PlanetDEM 90 data, the SRTM input data (v4.1) has been improved over specific mountain areas, and corrected over deserts and parts of the USA, using GDEM and NED.  
+
+> Granules and Tiles - A granule is the *minimum indivisible partition of a product* (containing all possible spectral bands).
+
+    For Level-0, Level-1A and Level-1B, granules are sub-images of a detector with a given number of lines along track. A granule covers approximately 25 km across-track and 23 km along-track.
+    For Level-1C, the granules, also called tiles, are 100 km2 ortho-images in UTM/WGS84 projection.
+
+
+
 <br/>
 
 
-- Source URL - ..
+- Source URL - https://eox.at/2015/12/understanding-sentinel-2-satellite-data/
 
-> The Sentinel 
+> The best introduction to Sentinel satellite's and the Copernicus programme that i have read. 
 
 
 
