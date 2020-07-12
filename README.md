@@ -36,9 +36,9 @@ Intial experiments with data from - sentinel_scihub_copernicus_eu
 <br/>
 
 
-- Source URL - the ```manifest.safe``` file 
+- Source URL - SENTINEL -SAFE(Standard  Archive  Format  for Europe) - https://sentinel.esa.int/documents/247904/685211/Sentinel-2-Products-Specification-Document
 
-> The Sentinel Data has ZIP file , once the ZIP files is uncompressed the TREE structure is as seen below --   
+> We get to notice the ```.safe``` file extension as seen for the - ```manifest.safe``` file . Also the same ```.SAFE``` extension is given for the actual Data file within the compressed ZIP File. The uncompressed Directory TREE structure is seen below :-   
 
 <br/>
 
