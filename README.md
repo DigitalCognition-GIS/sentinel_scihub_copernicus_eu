@@ -2,7 +2,7 @@
 
 
 <p align="center">
-    <img src="https://github.com/DigitalCognition-GIS/Landsat_Experiments/blob/master/ScreenCaptures/Landsat_8.jpg" width= "850px">
+    <img src="https://github.com/DigitalCognition-GIS/sentinel_scihub_copernicus_eu/blob/master/Screen_captures/Sentinel_Screenshot%20from%202020-07-12%2011-56-48.png" width= "850px">
 </p>
 
 <h1 align="center">SENTINEL Experiments - </h1>
