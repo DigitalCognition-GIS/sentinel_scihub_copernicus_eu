@@ -174,9 +174,9 @@ Intial experiments with data from - sentinel_scihub_copernicus_eu
 
 > The Sentinel Data has vector GML Files , these ```Geography Markup Language``` files are as listed within TREE structure of DIR = GRANULE > L1C_T43RFM_A003148_20160129T054903 > QI_DATA .    
 The 'tagset' for this GML has Elements as listed below -    
-- Within the outer Tagset - <eop:maskMembers><eop:maskMembers>
-- Within Tagset <eop:MaskFeature></eop:MaskFeature> we have ``` <eop:MaskFeature gml:id="OPAQUE.3">```
-- Also within the Tagset <eop></eop> we have -  <eop:maskType codeSpace="urn:gs2:S2PDGS:maskType">CIRRUS</eop:maskType>
+- Within the outer Tagset - ```<eop:maskMembers><eop:maskMembers>```
+- Within Tagset ```<eop:MaskFeature></eop:MaskFeature>``` we have ``` <eop:MaskFeature gml:id="OPAQUE.3">```
+- Also within the Tagset ```<eop></eop>``` we have -  ```<eop:maskType codeSpace="urn:gs2:S2PDGS:maskType">CIRRUS</eop:maskType>```
 
 <br/>
 
@@ -201,11 +201,9 @@ The 'tagset' for this GML has Elements as listed below -
 
 > DEM - Digital Elevation Model - *Orthorectification* in the L1C uses the 90m DEM (PlanetDEM 90). The PlanetDEM 90 is reprocessed from 90 metre SRTM (Shuttle Radar Topography Mission) source data. For PlanetDEM 90 data, the SRTM input data (v4.1) has been improved over specific mountain areas, and corrected over deserts and parts of the USA, using GDEM and NED.  
 
-> Granules and Tiles - A granule is the *minimum indivisible partition of a product* (containing all possible spectral bands).
-
-    For Level-0, Level-1A and Level-1B, granules are sub-images of a detector with a given number of lines along track. A granule covers approximately 25 km across-track and 23 km along-track.
-    For Level-1C, the granules, also called tiles, are 100 km2 ortho-images in UTM/WGS84 projection.
-
+> Granules and Tiles - A granule is the *minimum indivisible partition of a product* (containing all possible spectral bands). For Level-0, Level-1A and Level-1B, granules are sub-images of a detector with a given number of lines along track.   
+A granule covers approximately 25 km across-track and 23 km along-track.    
+For Level-1C, the granules, also called tiles, are 100 km2 ortho-images in UTM/WGS84 projection.   
 
 
 <br/>
