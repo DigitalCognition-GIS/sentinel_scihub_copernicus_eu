@@ -160,10 +160,18 @@ Intial experiments with data from - sentinel_scihub_copernicus_eu
 
 <br/>
 
-- Source URL - ..
+- Source URL - https://gdal.org/drivers/vector/gml.html
+- Source URL - Sentinel-2-msi Data-Formats  - https://sentinel.esa.int/web/sentinel/user-guides/sentinel-2-msi/data-formats 
 
-> The Sentinel Data has various GML Files , these Geography Markup Language files are listed above within TREE structure of the DIR = GRANULE > QI_DATA .    
+> The Sentinel Data has vector GML Files , these ```Geography Markup Language``` files are as listed within TREE structure of DIR = GRANULE > L1C_T43RFM_A003148_20160129T054903 > QI_DATA .    
+The 'tagset' for this GML has Elements as listed below -    
+- Within the outer Tagset - <eop:maskMembers><eop:maskMembers>
+- Within Tagset <eop:MaskFeature></eop:MaskFeature> we have ``` <eop:MaskFeature gml:id="OPAQUE.3">```
+- Also within the Tagset <eop></eop> we have -  <eop:maskType codeSpace="urn:gs2:S2PDGS:maskType">CIRRUS</eop:maskType>
 
+<br/>
+
+- Source - Further specifics read -- https://sentinel.esa.int/documents/247904/685211/Sentinel-2-Products-Specification-Document
 
 <br/>
 
